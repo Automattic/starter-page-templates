@@ -22,29 +22,16 @@ function wp_js_plugin_starter_url( $path ) {
 	return plugins_url( $path, __FILE__ );
 }
 
-/**
- * Registers the plugin's block.
- *
- * @since 1.0.0
- */
-function wp_js_plugin_starter_register_block() {
-	if ( ! function_exists( 'register_block_type' ) ) {
-		return;
-	}
-
-	wp_register_script(
-		'wp-js-plugin-starter',
-		wp_js_plugin_starter_url( 'dist/index.js' ),
-		array( 'wp-blocks', 'wp-element' ),
-		'1.0.1'
-	);
-
-	register_block_type( 'wp-js-plugin-starter/hello-world', array(
-		'editor_script' => 'wp-js-plugin-starter',
-	) );
+function page_templates_register() {
+    wp_register_script(
+        'plugin-sidebar-js',
+        wp_js_plugin_starter_url( 'dist/index.js' ),
+        array( 'wp-plugins', 'wp-edit-post', 'wp-element' )
+    );
 }
+add_action( 'init', 'page_templates_register' );
 
-/**
- * Trigger the block registration on init.
- */
-add_action( 'init', 'wp_js_plugin_starter_register_block' );
+function page_templates_enqueue() {
+    wp_enqueue_script( 'plugin-sidebar-js' );
+}
+add_action( 'enqueue_block_editor_assets', 'page_templates_enqueue' );
