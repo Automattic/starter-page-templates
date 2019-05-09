@@ -5,10 +5,12 @@
     const { withState } = wp.compose;
     
     const insertTemplate = () => {
-        fetch('https://wpdesignhub.com/designs/basic/051063/code.html')
-        .then( res => res.text() )
-        .then( text => {
-            wp.data.dispatch('core/editor').insertBlocks(wp.blocks.parse(text));
+        fetch('https://www.mocky.io/v2/5cd3fb89350000de307a5211')
+        .then( res => res.json() )
+        .then( data => {
+            const template = data.body.content;
+            const blocks = wp.blocks.parse(template);
+            wp.data.dispatch('core/editor').insertBlocks(blocks);
         }).catch( err => console.log(err) );
     };
     
