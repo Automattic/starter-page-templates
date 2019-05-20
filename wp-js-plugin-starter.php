@@ -32,6 +32,13 @@ function page_templates_register() {
 add_action( 'init', 'page_templates_register' );
 
 function page_templates_enqueue() {
+    $screen = get_current_screen();
+    
+    // return early if we don't meet conditions to show templates
+    if ( $screen->id !== 'page' || $screen->action !== 'add' ) {
+        return;
+    }
+    
     wp_enqueue_script( 'plugin-sidebar-js' );
 }
 add_action( 'enqueue_block_editor_assets', 'page_templates_enqueue' );
