@@ -35,7 +35,7 @@ function page_templates_enqueue() {
 	$screen = get_current_screen();
 
 	// return early if we don't meet conditions to show templates
-	if ( $screen->id !== 'page' || $screen->action !== 'add' ) {
+	if ( 'page' !== $screen->id || 'add' !== $screen->action ) {
 		return;
 	}
 
