@@ -9,7 +9,7 @@
  * @package wp-js-plugin-starter
  */
 
- /**
+/**
  * Retrieves a URL to a file in the plugin's directory.
  *
  * @param  string $path Relative path of the desired file.
@@ -23,22 +23,22 @@ function wp_js_plugin_starter_url( $path ) {
 }
 
 function page_templates_register() {
-    wp_register_script(
-        'plugin-sidebar-js',
-        wp_js_plugin_starter_url( 'dist/index.js' ),
-        array( 'wp-plugins', 'wp-edit-post', 'wp-element' )
-    );
+	wp_register_script(
+		'plugin-sidebar-js',
+		wp_js_plugin_starter_url( 'dist/index.js' ),
+		array( 'wp-plugins', 'wp-edit-post', 'wp-element' )
+	);
 }
 add_action( 'init', 'page_templates_register' );
 
 function page_templates_enqueue() {
-    $screen = get_current_screen();
-    
-    // return early if we don't meet conditions to show templates
-    if ( $screen->id !== 'page' || $screen->action !== 'add' ) {
-        return;
-    }
-    
-    wp_enqueue_script( 'plugin-sidebar-js' );
+	$screen = get_current_screen();
+
+	// return early if we don't meet conditions to show templates
+	if ( $screen->id !== 'page' || $screen->action !== 'add' ) {
+		return;
+	}
+
+	wp_enqueue_script( 'plugin-sidebar-js' );
 }
 add_action( 'enqueue_block_editor_assets', 'page_templates_enqueue' );
