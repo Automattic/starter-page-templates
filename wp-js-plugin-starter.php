@@ -13,10 +13,7 @@
  * Retrieves a URL to a file in the plugin's directory.
  *
  * @param  string $path Relative path of the desired file.
- *
  * @return string       Fully qualified URL pointing to the desired file.
- *
- * @since 1.0.0
  */
 function wp_js_plugin_starter_url( $path ) {
 	return plugins_url( $path, __FILE__ );
@@ -34,7 +31,7 @@ add_action( 'init', 'page_templates_register' );
 function page_templates_enqueue() {
 	$screen = get_current_screen();
 
-	// return early if we don't meet conditions to show templates
+	// Return early if we don't meet conditions to show templates.
 	if ( 'page' !== $screen->id || 'add' !== $screen->action ) {
 		return;
 	}
