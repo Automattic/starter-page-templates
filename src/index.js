@@ -1,11 +1,17 @@
 ( function( wp ) {
     const registerPlugin = wp.plugins.registerPlugin;
     const createElement = wp.element.createElement;
-    const { Modal, Button } = wp.components;
+    const { Modal, Button, RadioControl } = wp.components;
     const { withState } = wp.compose;
     
-    const insertTemplate = () => {
-        fetch('https://www.mocky.io/v2/5cd3fb89350000de307a5211')
+    const insertTemplate = template => {
+        console.log( 'Using template', template );
+
+        // set title
+        wp.data.dispatch('core/editor').editPost({title: template.title});
+        
+        // load content
+        fetch( template.contentUrl )
         .then( res => res.json() )
         .then( data => {
             const template = data.body.content;
@@ -16,21 +22,36 @@
     
     const PageTemplateModal = withState( {
         isOpen: true,
-    } )( ( { isOpen, setState } ) => (
+        isLoading: false,
+        selectedTemplate: 'home',
+        templates: {
+            home: { title: 'Home', slug: 'home', contentUrl: 'https://www.mocky.io/v2/5cd3fb89350000de307a5211' },
+            menu: { title: 'Menu', slug: 'menu', contentUrl: 'https://www.mocky.io/v2/5cd3fb89350000de307a5211' },
+            contact: { title: 'Contact Us', slug: 'contact', contentUrl: 'https://www.mocky.io/v2/5cd3fb89350000de307a5211' },
+        },
+    } )( ( { isOpen, selectedTemplate, templates, setState } ) => (
         <div>
             { isOpen && (
                 <Modal
                     title="Select Page Template"
                     onRequestClose={ () => setState( { isOpen: false } ) }>
-                    <Button
-                        isDefault
-                        onClick={ () => {
+                    <RadioControl
+                        label="Template"
+                        selected={ selectedTemplate }
+                        options={ Object.values( templates ).map( template => ( { label: template.title, value: template.slug } ) ) }
+                        onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
+                    />
+                    <div>
+                        <Button isDefault isLarge onClick={ () => setState( { isOpen: false } ) }>
+                            Start with blank page
+                        </Button>
+                        <Button isPrimary isLarge onClick={ () => {
                             setState( { isOpen: false } );
-                            insertTemplate();
-                        }}
-                    >
-                        This One!
-                    </Button>
+                            insertTemplate( templates[ selectedTemplate ] );
+                        } }>
+                            Use Template
+                        </Button>
+                    </div>
                 </Modal>
             ) }
         </div>
