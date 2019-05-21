@@ -37,29 +37,40 @@ import TemplateRadioControl from './components/template-radio-control';
             { isOpen && (
                 <Modal
                     title="Select Page Template"
-                    onRequestClose={ () => setState( { isOpen: false } ) }>
+                    onRequestClose={ () => setState( { isOpen: false } ) }
+                    className="st-template-selector__modal"
+                    >
+                    <div className="st-template-selector">
+                        <div className="st-template-selector__inner">
 
-                    <form className="st-template-form">
-                        <fieldset className="st-template-list">
-                            <TemplateRadioControl
-                                label="Template"
-                                selected={ selectedTemplate }
-                                options={ Object.values( templates ).map( template => ( { label: template.title, value: template.slug } ) ) }
-                                onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
-                            />
-                        </fieldset>
-                        <div>
-                            <Button isPrimary isLarge onClick={ () => {
-                                setState( { isOpen: false } );
-                                insertTemplate( templates[ selectedTemplate ] );
-                            } }>
-                                Use Template
-                            </Button>
-                             <Button isDefault isLarge onClick={ () => setState( { isOpen: false } ) }>
-                                Start with blank page
-                            </Button>
+                            <div className="st-template-selector__intro">
+                                <p>Pick a Template that matches the purpose of your page.</p>
+                                <p>You can customise each Template to meet your needs.</p>
+                            </div>
+                            <form className="st-template-form">
+                                <fieldset className="st-template-list">
+                                    <TemplateRadioControl
+                                        label="Template"
+                                        selected={ selectedTemplate }
+                                        options={ Object.values( templates ).map( template => ( { label: template.title, value: template.slug } ) ) }
+                                        onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
+                                    />
+                                </fieldset>
+                                <div>
+                                    <Button isPrimary isLarge onClick={ () => {
+                                        setState( { isOpen: false } );
+                                        insertTemplate( templates[ selectedTemplate ] );
+                                    } }>
+                                        Use Template
+                                    </Button>
+                                     <Button isDefault isLarge onClick={ () => setState( { isOpen: false } ) }>
+                                        Start with blank page
+                                    </Button>
+                                </div>
+                            </form>
+
                         </div>
-                    </form>
+                    </div>
                 </Modal>
             ) }
         </div>
