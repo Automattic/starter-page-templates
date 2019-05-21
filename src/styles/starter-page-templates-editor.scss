@@ -10,16 +10,16 @@
 	width: 1px;
 	word-wrap: normal !important;
 }
+.st-template-selector__modal {
+	width: calc(100% - 200px);
+    right: auto;
+    left: 180px;
+    transform: translateY(-50%);
+    height: 100vh;
+}
 
 .st-template-selector__modal .components-modal__header-heading-container {
 	justify-content: center;
-}
-
-.st-template-selector {
-	width: 100vw;
-    height: 100vh;
-    max-width: 100%;
-    max-height: 100%;
 }
 
 .st-template-selector__inner {
