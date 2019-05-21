@@ -1,7 +1,9 @@
 {
-  "name": "wp-js-plugin-starter",
-  "version": "1.0.1",
-  "description": "Just another WordPress plugin starter",
+  "name": "starter-page-templates",
+  "version": "1.0.0",
+  "description": "Create new pages by selecting pre-built page templates.",
+  "author": "Automattic",
+  "license": "GPLv2 or later",
   "main": "src/index.js",
   "private": true,
   "scripts": {
@@ -14,8 +16,6 @@
     "plugin",
     "javascript"
   ],
-  "author": "Riad Benguella",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@wordpress/babel-preset-default": "^2.1.0",

@@ -1,12 +1,11 @@
 <?php
 /**
- * Plugin Name: WP JS Plugin Starter
- * Plugin URI: https://github.com/youknowriad/wp-js-plugin-starter
- * Description: Just another WordPress plugin starter
- * Version: 1.0.1
- * Author: Riad Benguella
+ * Plugin Name: Starter Page Templates
+ * Description: Create new pages by selecting pre-built page templates.
+ * Version: 1.0.0
+ * Author: Automattic
  *
- * @package wp-js-plugin-starter
+ * @package starter-page-templates
  */
 
 /**
@@ -19,15 +18,23 @@ function wp_js_plugin_starter_url( $path ) {
 	return plugins_url( $path, __FILE__ );
 }
 
+/**
+ * Register scripts.
+ */
 function page_templates_register() {
 	wp_register_script(
-		'plugin-sidebar-js',
+		'starter-page-templates',
 		wp_js_plugin_starter_url( 'dist/index.js' ),
-		array( 'wp-plugins', 'wp-edit-post', 'wp-element' )
+		array( 'wp-plugins', 'wp-edit-post', 'wp-element' ),
+		filemtime( plugin_dir_path( __FILE__ . 'dist/index.js' ) ),
+		true
 	);
 }
 add_action( 'init', 'page_templates_register' );
 
+/**
+ * Enqueue scripts.
+ */
 function page_templates_enqueue() {
 	$screen = get_current_screen();
 
@@ -36,6 +43,6 @@ function page_templates_enqueue() {
 		return;
 	}
 
-	wp_enqueue_script( 'plugin-sidebar-js' );
+	wp_enqueue_script( 'starter-page-templates' );
 }
 add_action( 'enqueue_block_editor_assets', 'page_templates_enqueue' );
