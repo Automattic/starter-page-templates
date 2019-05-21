@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="starter-page-templates">
+	<description>Starter Page Templates</description>
+
+	<rule ref="WordPress"/>
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+	<arg name="extensions" value="php"/>
+
+	<!-- Strip the file paths down to the relevant bit. -->
+	<arg name="basepath" value="./"/>
+
+	<!-- Check up to 20 files simultaneously. -->
+	<arg name="parallel" value="20"/>
+
+	<!-- Show sniff codes in all reports. -->
+	<arg value="ps"/>
+
+	<!-- Scan it all! -->
+	<file>.</file>
+</ruleset>
