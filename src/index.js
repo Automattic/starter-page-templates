@@ -1,15 +1,15 @@
 import replacePlaceholders from './utils/replace-placeholders';
 import './styles/starter-page-templates-editor.scss';
 
+import TemplateRadioControl from './components/template-radio-control';
+
 ( function( wp ) {
     const registerPlugin = wp.plugins.registerPlugin;
     const createElement = wp.element.createElement;
-    const { Modal, Button, RadioControl } = wp.components;
+    const { Modal, Button } = wp.components;
     const { withState } = wp.compose;
     
     const insertTemplate = template => {
-        console.log( 'Using template', template );
-
         // set title
         wp.data.dispatch('core/editor').editPost({title: replacePlaceholders( template.title ) } );
         
@@ -38,23 +38,28 @@ import './styles/starter-page-templates-editor.scss';
                 <Modal
                     title="Select Page Template"
                     onRequestClose={ () => setState( { isOpen: false } ) }>
-                    <RadioControl
-                        label="Template"
-                        selected={ selectedTemplate }
-                        options={ Object.values( templates ).map( template => ( { label: template.title, value: template.slug } ) ) }
-                        onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
-                    />
-                    <div>
-                        <Button isDefault isLarge onClick={ () => setState( { isOpen: false } ) }>
-                            Start with blank page
-                        </Button>
-                        <Button isPrimary isLarge onClick={ () => {
-                            setState( { isOpen: false } );
-                            insertTemplate( templates[ selectedTemplate ] );
-                        } }>
-                            Use Template
-                        </Button>
-                    </div>
+
+                    <form className="st-template-form">
+                        <fieldset className="st-template-list">
+                            <TemplateRadioControl
+                                label="Template"
+                                selected={ selectedTemplate }
+                                options={ Object.values( templates ).map( template => ( { label: template.title, value: template.slug } ) ) }
+                                onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
+                            />
+                        </fieldset>
+                        <div>
+                            <Button isPrimary isLarge onClick={ () => {
+                                setState( { isOpen: false } );
+                                insertTemplate( templates[ selectedTemplate ] );
+                            } }>
+                                Use Template
+                            </Button>
+                             <Button isDefault isLarge onClick={ () => setState( { isOpen: false } ) }>
+                                Start with blank page
+                            </Button>
+                        </div>
+                    </form>
                 </Modal>
             ) }
         </div>

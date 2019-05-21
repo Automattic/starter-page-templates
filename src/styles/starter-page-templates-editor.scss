@@ -1,3 +1,54 @@
-body {
-	font-size: 900%;
+@mixin screen-reader-text() {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.st-template-list {
+	margin-bottom: 1.5em;
+	
+	.components-base-control__field {
+		display: grid;
+		grid-template-columns: repeat( auto-fit, minmax(140px, 1fr));
+		grid-gap: 1.5em 1.5em;
+	}
+
+	.components-base-control__label {
+		@include  screen-reader-text();
+	}
+
+
+	.template-radio-control__label {
+		display: block;
+		text-align: center;
+		border: 1px solid #999;
+		padding: 2em;
+		border-radius: 4px;
+
+		&:hover,
+		&:focus {
+			border-color: red;
+		}
+	}
+
+	.template-radio-control__input {
+		@include screen-reader-text();
+	}
+
+	.template-radio-control__input:checked ~ .template-radio-control__label {
+		box-shadow: 0 3px 3px #999;
+	}
+
+	.template-radio-control__media {
+		max-width: 100%;
+		display: block;
+		margin: 0 auto 2em auto;
+	}
 }
