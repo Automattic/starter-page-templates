@@ -1,4 +1,5 @@
 import replacePlaceholders from './utils/replace-placeholders';
+import './styles/starter-page-templates-editor.scss';
 
 ( function( wp ) {
     const registerPlugin = wp.plugins.registerPlugin;

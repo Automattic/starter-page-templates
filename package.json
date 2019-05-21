@@ -19,6 +19,10 @@
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@wordpress/babel-preset-default": "^2.1.0",
-    "parcel-bundler": "^1.10.1"
+    "parcel-bundler": "^1.10.1",
+    "sass": "^1.20.1"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.4.4"
   }
 }
