@@ -1,7 +1,7 @@
 import replacePlaceholders from './utils/replace-placeholders';
 import './styles/starter-page-templates-editor.scss';
 
-import TemplateRadioControl from './components/template-radio-control';
+import TemplateSelectorControl from './components/template-selector-control';
 
 ( function( wp ) {
     const registerPlugin = wp.plugins.registerPlugin;
@@ -28,9 +28,9 @@ import TemplateRadioControl from './components/template-radio-control';
         isLoading: false,
         selectedTemplate: 'home',
         templates: {
-            home: { title: 'Home', slug: 'home', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe' },
-            menu: { title: 'Menu', slug: 'menu', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe' },
-            contact: { title: 'Contact Us', slug: 'contact', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe' },
+            home: { title: 'Home', slug: 'home', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe', imgSrc: 'https://via.placeholder.com/200x180', },
+            menu: { title: 'Menu', slug: 'menu', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe', imgSrc: 'https://via.placeholder.com/200x180', },
+            contact: { title: 'Contact Us', slug: 'contact', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe', imgSrc: 'https://via.placeholder.com/200x180', },
         },
     } )( ( { isOpen, selectedTemplate, templates, setState } ) => (
         <div>
@@ -49,21 +49,26 @@ import TemplateRadioControl from './components/template-radio-control';
                             </div>
                             <form className="st-template-form">
                                 <fieldset className="st-template-list">
-                                    <TemplateRadioControl
+                                    <TemplateSelectorControl
                                         label="Template"
                                         selected={ selectedTemplate }
-                                        options={ Object.values( templates ).map( template => ( { label: template.title, value: template.slug } ) ) }
+                                        templates={ Object.values( templates ).map( template => ( {
+                                             label: template.title, 
+                                             value: template.slug,
+                                             preview: template.imgSrc
+                                         } ) ) }
                                         onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
                                     />
                                 </fieldset>
-                                <div>
-                                    <Button isPrimary isLarge onClick={ () => {
+                                <div class="st-template-actions">
+                                    <Button className="st-template-action st-template-action--use" isPrimary isLarge onClick={ () => {
                                         setState( { isOpen: false } );
                                         insertTemplate( templates[ selectedTemplate ] );
                                     } }>
                                         Use Template
                                     </Button>
-                                     <Button isDefault isLarge onClick={ () => setState( { isOpen: false } ) }>
+                                    or 
+                                    <Button className="st-template-action" isLink isLarge onClick={ () => setState( { isOpen: false } ) }>
                                         Start with blank page
                                     </Button>
                                 </div>
