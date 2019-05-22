@@ -26,7 +26,7 @@ function page_templates_register() {
 		'starter-page-templates',
 		wp_js_plugin_starter_url( 'dist/index.js' ),
 		array( 'wp-plugins', 'wp-edit-post', 'wp-element' ),
-		filemtime( plugin_dir_path( __FILE__ . 'dist/index.js' ) ),
+		filemtime( plugin_dir_path( __FILE__ ) . '/dist/index.js' ),
 		true
 	);
 }
