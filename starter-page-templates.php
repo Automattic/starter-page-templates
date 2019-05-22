@@ -46,3 +46,20 @@ function page_templates_enqueue() {
 	wp_enqueue_script( 'starter-page-templates' );
 }
 add_action( 'enqueue_block_editor_assets', 'page_templates_enqueue' );
+
+
+
+function spt_enqueue_block_assets() {
+	$style_file = is_rtl()
+			? 'index.rtl.css'
+			: 'index.css';
+
+	wp_enqueue_style(
+		'spt-style',
+		wp_js_plugin_starter_url( 'dist/' . $style_file ),
+		array(),
+		filemtime( plugin_dir_path( __DIR__ . '/dist/' . $style_file ) )
+	);
+}
+
+add_action( 'enqueue_block_assets', 'spt_enqueue_block_assets', 100 );
