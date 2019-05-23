@@ -30,9 +30,9 @@ import TemplateSelectorControl from './components/template-selector-control';
         isLoading: false,
         selectedTemplate: 'home',
         templates: {
-            home: { title: 'Home', slug: 'home', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe', imgSrc: 'https://via.placeholder.com/200x180', },
-            menu: { title: 'Menu', slug: 'menu', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe', imgSrc: 'https://via.placeholder.com/200x180', },
-            contact: { title: 'Contact Us', slug: 'contact', contentUrl: 'https://www.mocky.io/v2/5ce525112e00006900f83afe', imgSrc: 'https://via.placeholder.com/200x180', },
+            home: { title: 'Home', slug: 'home', contentUrl: 'https://www.mocky.io/v2/5ce680d73300009801731614', imgSrc: 'https://via.placeholder.com/200x180', },
+            menu: { title: 'Menu', slug: 'menu', contentUrl: 'https://www.mocky.io/v2/5ce681173300006600731617', imgSrc: 'https://via.placeholder.com/200x180', },
+            contact: { title: 'Contact Us', slug: 'contact', contentUrl: 'https://www.mocky.io/v2/5ce681763300004b3573161a', imgSrc: 'https://via.placeholder.com/200x180', },
         },
     } )( ( { isOpen, selectedTemplate, templates, setState } ) => (
         <div>
