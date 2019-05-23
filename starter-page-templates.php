@@ -55,20 +55,20 @@ function page_templates_enqueue() {
 		'templates'       => array(
 			array(
 				'title'   => 'Home',
-				'slug' 	  => 'home',
-				'content' => json_decode( file_get_contents( 'http://www.mocky.io/v2/5ce680d73300009801731614' ) )->body->content,
+				'slug'    => 'home',
+				'content' => json_decode( wp_remote_get( 'http://www.mocky.io/v2/5ce680d73300009801731614' )[ 'body' ] )->body->content,
 				'preview' => 'https://via.placeholder.com/200x180',
 			),
-            array(
+			array(
 				'title'   => 'Menu',
-				'slug' 	  => 'menu',
-				'content' => json_decode( file_get_contents( 'http://www.mocky.io/v2/5ce681173300006600731617' ) )->body->content,
+				'slug'    => 'menu',
+				'content' => json_decode( wp_remote_get( 'http://www.mocky.io/v2/5ce681173300006600731617' )[ 'body' ] )->body->content,
 				'preview' => 'https://via.placeholder.com/200x180',
 			),
-            array(
+			array(
 				'title'   => 'Contact Us',
-				'slug' 	  => 'contact',
-				'content' => json_decode( file_get_contents( 'http://www.mocky.io/v2/5ce681763300004b3573161a' ) )->body->content,
+				'slug'    => 'contact',
+				'content' => json_decode( wp_remote_get( 'http://www.mocky.io/v2/5ce681763300004b3573161a' )[ 'body' ] )->body->content,
 				'preview' => 'https://via.placeholder.com/200x180',
 			),
 		),
