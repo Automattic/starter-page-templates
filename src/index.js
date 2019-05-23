@@ -3,21 +3,23 @@ import './styles/starter-page-templates-editor.scss';
 
 import TemplateSelectorControl from './components/template-selector-control';
 
-( function( wp ) {
+( function( wp, config = {} ) {
     const registerPlugin = wp.plugins.registerPlugin;
     const createElement = wp.element.createElement;
     const { Modal, Button } = wp.components;
     const { withState } = wp.compose;
     
+    const { siteInformation = {}, vertical = null } = config;
+    
     const insertTemplate = template => {
         // set title
-        wp.data.dispatch('core/editor').editPost({title: replacePlaceholders( template.title ) } );
+        wp.data.dispatch('core/editor').editPost({title: replacePlaceholders( template.title, siteInformation ) } );
         
         // load content
         fetch( template.contentUrl )
         .then( res => res.json() )
         .then( data => {
-            const template = replacePlaceholders( data.body.content );
+            const template = replacePlaceholders( data.body.content, siteInformation );
             const blocks = wp.blocks.parse(template);
             wp.data.dispatch('core/editor').insertBlocks(blocks);
         }).catch( err => console.log(err) );
@@ -87,4 +89,4 @@ import TemplateSelectorControl from './components/template-selector-control';
             );
         }
     } );
-} )( window.wp );
+} )( window.wp, window.starterPageTemplatesConfig );

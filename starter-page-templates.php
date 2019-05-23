@@ -44,6 +44,17 @@ function page_templates_enqueue() {
 	}
 
 	wp_enqueue_script( 'starter-page-templates' );
+
+	$default_info = array(
+		'title' => get_bloginfo( 'name' ),
+	);
+	$site_info    = get_site_option( 'site_contact_info', array() );
+
+	$config = array(
+		'siteInformation' => array_merge( $default_info, $site_info ),
+		'vertical'        => get_site_option( 'site_vertical' ),
+	);
+	wp_localize_script( 'starter-page-templates', 'starterPageTemplatesConfig', $config );
 }
 add_action( 'enqueue_block_editor_assets', 'page_templates_enqueue' );
 
