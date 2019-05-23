@@ -52,7 +52,26 @@ function page_templates_enqueue() {
 
 	$config = array(
 		'siteInformation' => array_merge( $default_info, $site_info ),
-		'vertical'        => get_site_option( 'site_vertical' ),
+		'templates'       => array(
+			array(
+				'title'   => 'Home',
+				'slug' 	  => 'home',
+				'content' => json_decode( file_get_contents( 'http://www.mocky.io/v2/5ce680d73300009801731614' ) )->body->content,
+				'preview' => 'https://via.placeholder.com/200x180',
+			),
+            array(
+				'title'   => 'Menu',
+				'slug' 	  => 'menu',
+				'content' => json_decode( file_get_contents( 'http://www.mocky.io/v2/5ce681173300006600731617' ) )->body->content,
+				'preview' => 'https://via.placeholder.com/200x180',
+			),
+            array(
+				'title'   => 'Contact Us',
+				'slug' 	  => 'contact',
+				'content' => json_decode( file_get_contents( 'http://www.mocky.io/v2/5ce681763300004b3573161a' ) )->body->content,
+				'preview' => 'https://via.placeholder.com/200x180',
+			),
+		),
 	);
 	wp_localize_script( 'starter-page-templates', 'starterPageTemplatesConfig', $config );
 }

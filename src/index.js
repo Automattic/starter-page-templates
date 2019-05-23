@@ -1,5 +1,6 @@
 import replacePlaceholders from './utils/replace-placeholders';
 import './styles/starter-page-templates-editor.scss';
+import { keyBy } from 'lodash';
 
 import TemplateSelectorControl from './components/template-selector-control';
 
@@ -9,31 +10,23 @@ import TemplateSelectorControl from './components/template-selector-control';
     const { Modal, Button } = wp.components;
     const { withState } = wp.compose;
     
-    const { siteInformation = {}, vertical = null } = config;
+    const { siteInformation = {}, templates = [] } = config;
     
     const insertTemplate = template => {
         // set title
         wp.data.dispatch('core/editor').editPost({title: replacePlaceholders( template.title, siteInformation ) } );
         
         // load content
-        fetch( template.contentUrl )
-        .then( res => res.json() )
-        .then( data => {
-            const template = replacePlaceholders( data.body.content, siteInformation );
-            const blocks = wp.blocks.parse(template);
-            wp.data.dispatch('core/editor').insertBlocks(blocks);
-        }).catch( err => console.log(err) );
+        const templateString = replacePlaceholders( template.content, siteInformation );
+        const blocks = wp.blocks.parse( templateString );
+        wp.data.dispatch('core/editor').insertBlocks( blocks );
     };
     
     const PageTemplateModal = withState( {
         isOpen: true,
         isLoading: false,
         selectedTemplate: 'home',
-        templates: {
-            home: { title: 'Home', slug: 'home', contentUrl: 'https://www.mocky.io/v2/5ce680d73300009801731614', imgSrc: 'https://via.placeholder.com/200x180', },
-            menu: { title: 'Menu', slug: 'menu', contentUrl: 'https://www.mocky.io/v2/5ce681173300006600731617', imgSrc: 'https://via.placeholder.com/200x180', },
-            contact: { title: 'Contact Us', slug: 'contact', contentUrl: 'https://www.mocky.io/v2/5ce681763300004b3573161a', imgSrc: 'https://via.placeholder.com/200x180', },
-        },
+        templates: keyBy( templates, 'slug' ),
     } )( ( { isOpen, selectedTemplate, templates, setState } ) => (
         <div>
             { isOpen && (
@@ -57,7 +50,7 @@ import TemplateSelectorControl from './components/template-selector-control';
                                         templates={ Object.values( templates ).map( template => ( {
                                              label: template.title, 
                                              value: template.slug,
-                                             preview: template.imgSrc
+                                             preview: template.preview,
                                          } ) ) }
                                         onChange={ ( selectedTemplate ) => { setState( { selectedTemplate } ) } }
                                     />
